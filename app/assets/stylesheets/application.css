@@ -12,4 +12,9 @@
  *
  *= require_tree .
  *= require_self
+ *= require style
+ *= require blue-light-2
+ *= require fonts/font-awesome.min
+
+ *= require flaticon
  */
