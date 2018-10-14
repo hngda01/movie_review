@@ -1,0 +1,64 @@
+<header class="main-header main-header-4">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a href="index.html" class="logo">
+                    <%= link_to image_tag("logo3.png") %>
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse collapse" role="navigation" aria-expanded="true" id="app-navigation">
+                
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a id="header-search-btn" ></a>
+                    </li>
+                    <li>
+                        <a href="https://anime-review-danghai.c9users.io" id="header-search-btn" >ホーム</a>
+                    </li>
+                    <li>
+                        <a id="header-search-btn"  >コンタクト</a>
+                    </li>                   
+                </ul>
+                <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
+                    <li>
+                        <input type="text" class="btn-navbar btn btn-sm btn-theme-sm-outline btn-round" placeholder="映画を検索" >
+                    </li>
+                    <li>
+                        <a id="header-search-btn" class="btn-navbar search-icon"><i class="fa fa-search"></i></a>
+                    </li>
+                     <% if user_signed_in? %>
+                            <li class="dropdown">
+                                <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                                    <%= current_user.name %><span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="index.html">マイプロフィール</a></li>
+                                    <li><a data-toggle="modal" data-target="#myModal">映画を勧める</a></li>
+                                    <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                                </ul>
+                            </li>
+                            <% else %>
+                              <li>
+                                  <!--<a id="header-search-btn" >sign up</a>-->
+                                  <%= link_to "サインイン", new_user_session_path %>
+                              </li>
+                              <li>
+                                  <!--<a id="header-search-btn" >login</a>-->
+                                  <%= link_to "サインアップ", new_user_registration_path %>
+                              </li>
+                        <% end %>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="header-search animated fadeInDown">
+            <form class="form-inline">
+                <input type="text" class="form-control" id="searchKey" placeholder="Search...">
+                <div class="search-btns">
+                    <button type="submit" class="btn btn-default">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>

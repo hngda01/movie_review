@@ -1,0 +1,76 @@
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class="container">
+  <h2>Modal Example  adsfadf</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">映画情報</h4>
+        </div>
+        <div class="modal-body">
+            <%= nested_form_for @movie do |f| %>
+              <div class="form-group">
+                <label for="exampleInputEmail1">映画名</label>
+                <%= f.text_field :name, class: "form-control",placeholder:"映画名" %>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">作品情報</label>
+                <%= f.text_area :info, class: "form-control",placeholder:"作品情報",:size => "20x5" %>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">公開年</label>
+                <%= f.date_field :date, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputFile">写真</label>
+                <%= f.file_field :picture %>
+              </div>
+              <div id="clock">
+                <center>
+                  <img src=""alt="" id ='image1' style="height: 300px;width: 500px" >
+                </center>
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="exampleInputPassword1">キャスト</label>
+                <%= f.fields_for :characters do |task_form| %>
+                  <%= task_form.text_field :name, class:"form-control",placeholder:"俳優名" %>
+                  <%= task_form.link_to_remove "削除" %>
+                <% end %>
+                <p><%= f.link_to_add "キャストを追加", :characters %></p>
+              </div>
+              <%= f.submit "完了" %>
+              <!--<button type="submit" class="btn btn-default">Submit</button>-->
+            <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+<script>
+    $(document).ready(function () {
+        $('#image1').attr('src');
+        console.log($('#image1').attr('src'));
+        $('input[name="movie[picture]"]').on('change',function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#image1').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        })
+    })
+</script>
