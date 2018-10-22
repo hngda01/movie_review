@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
     if @movie.save
       params[:movie][:characters_attributes].each do |a|
         act = Actor.find_by(name: a[1][:name])
-        if act.blank? 
+        if act.blank?
           r = Actor.new(name: a[1][:name])
           r.save
           mc = MovieCharacter.new movie_id: @movie.id, actor_id: r.id
@@ -26,6 +26,28 @@ class MoviesController < ApplicationController
     end
   end
   
+  def destroy
+    @movie = Movie.find(params[:id])
+    @movie.destroy
+    flash[:success] = "削除しました"
+    redirect_to @movie
+  end
+
+  def edit
+    @movie = Movie.find(params[:id])
+  end
+
+  def update
+    @movie = Movie.find(params[:id])
+    if @movie.update_attributes(movie_params)
+      flash[:success] = "映画を更新しました"
+      redirect_to @movie
+    else
+      flash[:danger] = "失敗した! 入力フィールドを空白にすることはできません"
+      redirect_to @movie
+    end
+  end
+
   private
 
   def movie_params
