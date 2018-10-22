@@ -17,9 +17,11 @@
             <%= link_to "ホーム", root_path %>
             <!-- <a href="https://anime-review-danghai.c9users.io" id="header-search-btn">ホーム</a> -->
           </li>
-          <li>
-            <a id="header-search-btn">マイプロフィール</a>
-          </li>
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to "マイプロフィール", user_path(current_user.id) %>
+            </li>
+          <% end %>
 
         </ul>
         <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
@@ -40,7 +42,9 @@
                 <%= current_user.name %><span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="index.html">マイプロフィール</a></li>
+                <li>
+                  <%= link_to "マイプロフィール", user_path(current_user.id) %>
+                </li>
                 <li><a data-toggle="modal" data-target="#myModal">映画を勧める</a></li>
                 <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
               </ul>

@@ -4,7 +4,6 @@ class MoviesController < ApplicationController
     if @movie && @movie.check == 1
   	 find_movie
     else
-      flash[:danger] = "この映画はありません"
       redirect_to root_path
     end
   end

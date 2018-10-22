@@ -17,6 +17,6 @@ class User < ActiveRecord::Base
             length: {maximum: 255},
             format: {with: VALID_EMAIL_REGEX},
             uniqueness: {case_sensitive: false}
-
+  mount_uploader :picture, PictureUploader
   enum role: {admin: 0, member: 1}
 end

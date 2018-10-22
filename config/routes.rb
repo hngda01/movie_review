@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get 'static_pages/home'
   match '/search', to: "static_pages#search", via: [:get, :post], as: :search
   resources :movies
+  resources :users, only: [:show]
 end
