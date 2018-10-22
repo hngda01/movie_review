@@ -1,43 +1,90 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="profile-page">
+  <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
+  <div class="main main-raised">
+    <div class="profile-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto">
+            <div class="profile">
+              <div class="avatar">
+                <% if @user.picture.present? %>
+                  <%= image_tag @user.picture.url, alt: "Circle Image", class: "img-raised rounded-circle img-fluid" %>
+                <% else %>
+                  <%= image_tag "https://mobilityunlimited.org/sites/default/files/styles/profile_image/public/default_images/blank_avatar_0.png?itok=FbFCzhCk", alt: "Circle Image", class: "img-raised rounded-circle img-fluid" %>
+                <% end %>
+              </div>
+              <div class="name">
+                <h3 class="title"><%= @user.name %></h3>
+                <h6><%= @user.email %></h6>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-content-box">
+                <div class="details-edit">
+                  <h3>マイプロフィール設定</h3>
+                  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+                    <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                    <div class="form-group-edit">
+                      <%= f.label :name, "ユーザーネーム" %>
+                      <%= f.text_field :name, class: "input-text", autofocus: true %>
+
+                    </div>
+
+                    <div class="form-group-edit">
+                      <%= f.label :email, "メールアドレス" %>
+                      <%= f.email_field :email, class: "input-text", autofocus: true %>
+                    </div>
+
+                    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                      <div>確認中です : <%= resource.unconfirmed_email %></div>
+                    <% end %>
+
+                    <div class="form-group-edit">
+                      <%= f.label :password, "パスワード" %> <i>(<%= @minimum_password_length %> 最小文字数)</i>
+                      <%= f.password_field :password, class: "input-text" %>
+                    </div>
+
+                    <div class="form-group-edit">
+                      <%= f.label :password_confirmation, "パスワード確認" %><i>(<%= @minimum_password_length %> 最小文字数)</i>
+                      <%= f.password_field :password_confirmation, class: "input-text" %>
+                    </div>
+
+                    <div class="form-group-edit">
+                      <%= f.label :current_password, "現在のパスワード" %>
+                      <%= f.password_field :current_password, class: "input-text" %>
+                    </div>
+
+                    <div class="form-group-edit">
+                      <%= f.label :picture, "プロフィールの写真" %>
+                      <%= f.file_field :picture, accept: "image/jpeg,image/gif,image/png" %>
+                      <%= f.hidden_field :picture_cache, accept: "image/jpeg,image/gif,image/png" %>
+                    </div>
+
+                    <div class="mb-0">
+                      <%= f.submit "保存する", class: "btn-md btn-theme btn-block" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
 
-<h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
+

@@ -1,0 +1,55 @@
+<div class="profile-page">
+  <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
+  <div class="main main-raised">
+    <div class="profile-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto">
+            <div class="profile">
+              <div class="avatar">
+                <% if @user.picture.present? %>
+                  <%= image_tag @user.picture.url, alt: "Circle Image", class: "img-raised rounded-circle img-fluid" %>
+                <% else %>
+                  <%= image_tag "https://mobilityunlimited.org/sites/default/files/styles/profile_image/public/default_images/blank_avatar_0.png?itok=FbFCzhCk", alt: "Circle Image", class: "img-raised rounded-circle img-fluid" %>
+                <% end %>
+              </div>
+              <div class="name">
+                <h3 class="title"><%= @user.name %></h3>
+                <h6><%= @user.email %></h6>
+                <%= link_to edit_user_registration_path do %>
+                  <div class="btn btn-just-icon btn-link">
+                    <i class="fa fa-edit"></i>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <h1 style="padding-top: 30px">マイプロフィール</h1>
+        </div>
+      </div>
+      <div class="content-area staff-section">
+        <div class="container">
+          <!-- Main title -->
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="staff-box-2">
+                <div class="title-reviewed">
+                  <h2>レビューした映画</h2>
+                </div>
+                <%= render @movies_reviewed %>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="staff-box-2">
+                <div class="title-reviewed">
+                  <h2>レートした映画</h2>
+                </div>
+                <%= render @movies_rated %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
