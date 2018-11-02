@@ -1,6 +1,11 @@
 class MoviesController < ApplicationController
   def show
-  	@movie = Movie.find(params[:id])
+    @movie = Movie.find(params[:id])
+    @ownNotifications= Notification.where("user_id = ? and movie_id = ?",current_user.id,params[:id])
+    @ownNotifications.each do |noti|
+      noti.destroy
+    end
+    @notifications= @user.notifications
   end
   def create
     @movie = Movie.new movie_params
@@ -25,7 +30,7 @@ class MoviesController < ApplicationController
       redirect_to root_path
     end
   end
-  
+
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
@@ -35,6 +40,7 @@ class MoviesController < ApplicationController
 
   def edit
     @movie = Movie.find(params[:id])
+    @notifications= @user.notifications
   end
 
   def update

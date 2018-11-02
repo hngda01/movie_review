@@ -4,6 +4,7 @@ class Movie < ApplicationRecord
   has_many :rates, foreign_key: "movie_id"
   has_many :rated_users, through: :rates, source: :user
   has_many :movie_characters, foreign_key: "movie_id"
+  has_many :notifications, dependent: :destroy
   has_and_belongs_to_many :actors, join_table: 'movie_characters'
   has_many :characters, through: :movie_characters, source: :actor
   accepts_nested_attributes_for :characters
