@@ -87,47 +87,30 @@
             <% if current_user.role == "admin" %>
               <% noti = Movie.where(check: 0).count %>
               <% if noti != 0 %>
-              <li>
-                <a href="http://localhost:3000/admin/suggest_list" ><i class="fa fa-bell" aria-hidden="true"></i><sup><%= noti %></sup></a>
-
-              </li>
-              <ul class="dropdown-menu noti-table" aria-labelledby="noti">
-            <% @notis.each do |noti| %>
-            <li class="noti-comp">
-            <%= link_to(noti.movie) do %>
-                <%= image_tag noti.movie.picture.url, class: "img-responsive img-circle noti-pic" if noti.movie.picture? %>
-                <span>
-                  <%= noti.noti%>
-                </span>
-            <% end %>
-            </li>
-            <% end %>
-          </ul>
-          <style>
-          .dropdown-menu>.view-more>a{
-            color: #23527c !important;
-            font-weight: bold !important;
-            padding: 3px 20px !important;
-          }
-          .noti-table{
-            width: 300px;
-          }
-          .noti-comp>a{
-            height: 80px;
-          }
-          .dropdown-menu>.noti-comp>a>span{
-            display: inline-block !important;
-              white-space: normal !important;
-              padding: 2px 0px 10px !important;
-              width: 75%;
-          }
-          .noti-pic{
-            height: 55px !important;
-            width: 55px !important;
-            float: left;
-            margin: 5px;
-          }
-          </style>
+              <li class="nav-item dropdown">
+                    <a class="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-bell"><sup><%= noti %></sup></i>
+                    </a>
+                      <ul class="dropdown-menu">
+                        <li class="head text-light bg-dark">
+                          <div class="row">
+                        </li>
+                        <li class="notification-box">
+                          <div class="row">
+                            <div class="col-lg-3 col-sm-3 col-3 text-center">
+                              <img src="/demo/man-profile.jpg" class="w-50 rounded-circle">
+                            </div>
+                            <div class="col-lg-8 col-sm-8 col-8">
+                              <small class="fa fa-calendar"><%= @movie.name %>
+                              </small>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="footer bg-dark text-center">
+                          <a href="http://localhost:3000/admin/suggest_list" class="text-light">View All</a>
+                        </li>
+                      </ul>
+                  </li>
               <% end %>
             <% end %>
           <% end %>
