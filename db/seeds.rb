@@ -1,3 +1,4 @@
+# fake user
 User.create!(name: "Admin",
              email: "admin@gmail.com",
              password: "123456",
@@ -13,33 +14,41 @@ User.create!(name: "Admin",
                password_confirmation: password,
                role: 1)
 end
-20.times do |n|
-  name = Faker::Name.name
-  Actor.create!(name: name)
-end
-image_data = File.open(File.join(Rails.root, 'app/assets/images/phim4.jpg'))
+
 cat = ["アニメ", "ドラマ", "恋愛", "ホラー", "アート・コンテンポラリー", "戦争", "ミュージカル", "スポーツ", "SF", "コメディ", "アクション", "アドベンチャー・冒険", "クライム", "ドキュメンタリー", "伝記"]
 kuni = ["日本", "アメリカ", "フランス", "韓国", "イギリス", "インド", "イタリア", "ドイツ", "スウェーデン", "スペイン", "中国", "アイルランド", "香港", "フィンランド", "台湾"]
-30.times do |n|
-  name = Faker::Superhero.name
-  info = Faker::Lorem.sentence(5)
+# fake movies
+
+20.times do |n|
+  name = Faker::Lorem.sentence(1)
+  info = Faker::Lorem.sentence(100)
   cat_random = rand(0..(cat.length - 1))
   kuni_random = rand(0..(kuni.length - 1))
+  file_name = rand(1..7)
+  name_string = 'app/assets/images/phim'+file_name.to_s+'.jpg'
+  image_data = File.open(File.join(Rails.root, name_string))
   Movie.create!(name: name,
                 picture: image_data,
                 info: info,
                 check: 1,
-                date: Date.current,
+                date: ( Date.current - 100),
                 category: cat_random,
                 nation: kuni_random,
-                duration: 10,
-                rate_score: 4)
+                duration: 100,
+                trailer: "https://www.youtube.com/embed/tgbNymZ7vqY",
+                rate_score: 0.0)
 end
+
+# fake movies dang chieu
+
 20.times do |n|
-  name = Faker::Superhero.name
-  info = Faker::Lorem.sentence(5)
-  cat_random = cat[rand(0..(cat.length - 1))]
-  kuni_random = kuni[rand(0..(kuni.length - 1))]
+  name = Faker::Lorem.sentence(1)
+  info = Faker::Lorem.sentence(100)
+  cat_random = rand(0..(cat.length - 1))
+  kuni_random = rand(0..(kuni.length - 1))
+  file_name = rand(1..7)
+  name_string = 'app/assets/images/phim'+file_name.to_s+'.jpg'
+  image_data = File.open(File.join(Rails.root, name_string))
   Movie.create!(name: name,
                 picture: image_data,
                 info: info,
@@ -47,40 +56,71 @@ end
                 date: Date.current,
                 category: cat_random,
                 nation: kuni_random,
-                duration: 10,
-                rate_score: 0)
+                duration: 100,
+                trailer: "https://www.youtube.com/embed/tgbNymZ7vqY",
+                rate_score: 0.0)
 end
-10.times do |n|
-  name = Faker::Superhero.name
-  info = Faker::Lorem.sentence(5)
+
+
+# fake fiml sap chieu
+
+20.times do |n|
+  name = Faker::Lorem.sentence(1)
+  info = Faker::Lorem.sentence(100)
+  cat_random = rand(0..(cat.length - 1))
+  kuni_random = rand(0..(kuni.length - 1))
+  file_name = rand(1..7)
+  name_string = 'app/assets/images/phim'+file_name.to_s+'.jpg'
+  image_data = File.open(File.join(Rails.root, name_string))
   Movie.create!(name: name,
                 picture: image_data,
                 info: info,
-                check: 0,
-                date: Date.current,
-                rate_score: 0)
+                check: 1,
+                date: (Date.current + 20),
+                category: cat_random,
+                nation: kuni_random,
+                duration: 100,
+                trailer: "https://www.youtube.com/embed/tgbNymZ7vqY",
+                rate_score: 0.0)
 end
-(1..20).each do |x|
-  Review.create!(user_id: x + 1,
-                 movie_id: x,
-                 content: Faker::Lorem.sentence(10),
-                 review_voteup: 0,
-                 review_votedown: 0)
-  Rate.create!(user_id: x + 1,
-               movie_id: x,
-               rate: 4)
-  MovieCharacter.create!(movie_id: x,
-                         actor_id: x)
-  MovieCharacter.create!(movie_id: x + 1,
-                         actor_id: x)
-  MovieCharacter.create!(movie_id: x + 2,
-                         actor_id: x)
-end
-10.times do |n|
+# fake dien vien
+40.times do |n|
+  file_name = rand(0..19)
+  image_data = File.open(File.join(Rails.root, 'app/assets/images/a'+file_name.to_s+'.jpeg'))
   name = Faker::Name.name
   Actor.create!(name: name,
-                picture: "a#{n}")
+                picture: image_data)
 end
+
+(1..60).each do |x|
+
+  MovieCharacter.create!(movie_id: x,
+                         actor_id: 1,
+                         role: "Tom")
+  MovieCharacter.create!(movie_id: x,
+                         actor_id: 2,
+                         role: "Jerry")
+  MovieCharacter.create!(movie_id: x,
+                         actor_id: 3,
+                         role: "Anna")
+  MovieCharacter.create!(movie_id: x,
+                         actor_id: 4,
+                         role: "Mikkey")
+  MovieCharacter.create!(movie_id: x,
+                         actor_id: 5,
+                         role: "Donal")
+  MovieCharacter.create!(movie_id: x,
+                         actor_id: 6,
+                         role: "Peter")
+  MovieCharacter.create!(movie_id: x,
+                         actor_id: 7,
+                         role: "Duck")
+  MovieCharacter.create!(movie_id: x,
+                         actor_id: 8,
+                         role: "Pikachu")
+
+end
+
 15.times do |n|
   Cat.create!(name: cat[n])
 end

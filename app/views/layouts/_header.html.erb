@@ -26,7 +26,9 @@
                     <ul class="multi-column-dropdown" style="font-size: 10px;">
                       <% 5.times do |j| %>
                         <% cat = Nation.find(i*5+(j+1)) %>
-                        <li><a href="#"><%= cat.name %></a></li>
+                        <li>
+                          <%= link_to cat.name, nation_path(nation: i*5+(j+1)) %>
+                        </li>
                       <% end %>
                     </ul>
                   </div>
@@ -43,7 +45,9 @@
                     <ul class="multi-column-dropdown" style="font-size: 10px;">
                       <% 5.times do |j| %>
                         <% cat = Cat.find(i*5+(j+1)) %>
-                        <li><a href="#"><%= cat.name %></a></li>
+                        <li>
+                          <%= link_to cat.name, cate_path(cate: i*5+(j+1)) %>
+                        </li>
                       <% end %>
                     </ul>
                   </div>
@@ -51,24 +55,7 @@
                 </div>
             </ul>
           </li>
-          <% first_year = 2018 %>
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">製作年 <b class="caret"></b></a>
-              <ul class="dropdown-menu multi-column columns-3">
-                <div class="row" style="width: 500px; ">
-                  <% 3.times do |i|%>
-                  <div class="col-sm-4">
-                    <ul class="multi-column-dropdown" style="font-size: 10px;">
-                      <% 5.times do |j| %>
-                        <% cat = (i*5+j) %>
-                        <li><a href="#"><%= first_year - cat %></a></li>
-                      <% end %>
-                    </ul>
-                  </div>
-                  <% end %>
-                </div>
-            </ul>
-          </li>
+
           <li>
             <%#= search_form_for @q, url: {controller: "static_pages", action: "search"}, html: {method: :post} do |sf| %>
             <%= search_form_for @q, url: search_path, html: {method: :post} do |sf| %>
@@ -159,7 +146,6 @@
                     <%= link_to "映画を勧める", suggest_movie_path %>
                   <% else %>
                     <%= link_to "映画を追加", new_movie_path %>
-                    <%= link_to "俳優を追加", new_actor_path %>
                   <% end %>
                 </li>
                   <hr>

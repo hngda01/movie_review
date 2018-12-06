@@ -58,6 +58,7 @@
                   <i class="glyphicon glyphicon-duplicate" aria-hidden="true"></i>
                   <strong>ジャンル：</strong> <%= Cat.find(@movie.category).name %>
                 </li>
+                <% if user_signed_in? %>
                 <li>
                   <div class="dropdown">
                     <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
@@ -101,6 +102,7 @@
                     </ul>
                   </div>
                 </li>
+                <% end %>
               </div>
               </div>
             </div>
@@ -132,7 +134,7 @@
                       <div class="col-sm-3" style="    padding-left: 5px;    padding-right: 5px;">
                         <div class="thumbnail" >
                           <!-- <img alt="..." src="http://placehold.it/200x200"> -->
-                          <%= image_tag ("#{item.picture}.jpeg"), style:"width: 150px; height: 150px;" %>
+                           <%= image_tag item.picture.url, style:"width: 150px; height: 150px;" %>
                           <center><b><h5><%= item.name %></h5></b></center>
                           <center><%= item.movie_characters.where(movie_id: @movie.id).first.role %></center>
                         </div>
@@ -148,7 +150,7 @@
                       <div class="col-sm-3" style="    padding-left: 5px;    padding-right: 5px;">
                         <div class="thumbnail" >
                           <!-- <img alt="..." src="http://placehold.it/200x200"> -->
-                          <%= image_tag item.picture, style:"width: 150px; height: 150px;" %>
+                          <%= image_tag item.picture.url, style:"width: 150px; height: 150px;" %>
                           <center><b><h5><%= item.name %></h5></b></center>
                           <center><%= item.movie_characters.where(movie_id: @movie.id).first.role %></center>
                         </div>
@@ -299,9 +301,14 @@
               <div class="commentBoxfloat">
 
               </div>
-
-              <div id="cmntContr">
+              <% if user_signed_in? %>
+              <% rate_1 = Rate.find_by(user_id: current_user.id, movie_id: @movie.id) %>
+              <% if !rate_1 %>
+              <div id="cmntContr" style="display: none" >
+                <%= render "movies/fake_comment",movie: @movie %>
               </div>
+              <% end %>
+              <% end %>
             </div>
             <!-- comment  -->
             <%= render "movies/comment",movie: @movie %>
@@ -391,6 +398,7 @@
               $("#my-star"+i).removeClass('selected');
           }
         }
+
         cv = parseFloat(cv);
         if(cv == 1)
           s = 0 ;
@@ -401,6 +409,7 @@
         var pe = s*100/5;
         $('#all-star').css("width", pe+"%");
         $('#all-rate').text(s+"/5");
+
         // alert('1');
       }else{
         // alert('2');
@@ -409,33 +418,20 @@
          return true;
        }
        $('kaku').text("レビューを編集する");
-       var str = "<div class=\"panel panel-white post panel-shadow\">"+
-       "<div class=\"post-heading\">"
-       +"<div class=\"pull-left image\">"
-       +"<img src=\"http://bootdey.com/img/Content/user_1.jpg\" class=\"img-circle avatar\" alt=\"user profile image\">"
-       +"</div>"
-       +"<div class=\"pull-left meta\">"
-       +"<div class=\"title h5\">"
-       +"<a href=\"#\"><b>"+name+"</b></a>"
-       +"</div>"
-       +"<h6 class=\"text-muted time\">1分前</h6>"
-       +"</div>"
-       + starString
-       +" </div>"
-       +"<div class=\"post-description\">"
-       +"<p> "+userCmnt+" </p>"
-       +"<div class=\"stats\">"
-       +"<a href=\"#\" class=\"btn btn-default stat-item\">"
-       +"<i class=\"fa fa-thumbs-up icon\"></i>0"
-       +"</a>"
-       +"<a href=\"#\" class=\"btn btn-default stat-item\">"
-       +"<i class=\"fa fa-thumbs-down icon\"></i>0"
-       +"</a>"
-       +"<button type=\"button\" id=\"my-but\"> 削除 </button>"
-       +"</div>"
-       +"</div>"
-       +"</div>";
-       $('#cmntContr').append(str);
+
+       $("#my-review").text(userCmnt);
+        // $("#my-star1").removeClass('selected');
+        if (starCount > 0) {
+          for(i=1;i<=5;i++){
+            if(i<=starCount){
+              $("#my-star"+i).addClass('selected');
+            }
+            else
+              $("#my-star"+i).removeClass('selected');
+          }
+        }
+        var x = document.getElementById('cmntContr');
+        x.style.display = 'inline';
        const WEB_PATH = "http://gtm2018.herokuapp.com";
        const LOCAL_PATH = "http://0.0.0.0:3000";
        const URL_TEST = LOCAL_PATH;
@@ -454,6 +450,7 @@
       var pe = s*100/5;
       $('#all-star').css("width", pe+"%");
       $('#all-rate').text(s+"/5");
+
     }
       // $(this).removeClass('editNow');
     });

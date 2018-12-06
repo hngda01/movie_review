@@ -1,5 +1,5 @@
-<% movie.reviews.order(updated_at: :desc).each do |review| %>
-<% rate = Rate.find_by(user_id: review.user_id, movie_id: review.movie_id) %>
+<% review = Review.new(user_id: current_user.id, movie_id: movie.id, content: " ") %>
+<% rate = Rate.new(user_id: current_user.id, movie_id: movie.id, rate: 0) %>
 <% if user_signed_in? %>
 <% id_div = "my-div" if review.user_id == current_user.id  %>
 <% end %>
@@ -17,7 +17,7 @@
         <a href="#"><b><%= review.user.name %></b></a>
         <!-- made a post. -->
       </div>
-      <h6 class="text-muted time"><%= review.updated_at %></h6>
+      <h6 class="text-muted time">1分前</h6>
     </div>
     <div class="pull-right meta">
       <section class="rating-widget">
@@ -53,10 +53,6 @@
           <span id="my-review">
             <%= review.content %>
           </span>
-        <% else %>
-        <span>
-          <%= review.content %>
-        </span>
         <% end %>
       <% else %>
         <span>
@@ -97,7 +93,6 @@
     </div>
   </div>
 </div>
-<% end %>
 <script type="text/javascript">
   function like_review(id,user_id){
     var name1 = $('#like'+id).attr("name");

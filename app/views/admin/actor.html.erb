@@ -1,10 +1,11 @@
-<center><h1>削除一覧 </h1></center>
+<center><h1>俳優一覧 </h1></center>
 <div class="container">
 <%= will_paginate @actors %>
 <table class="table table-hover">
     <thead>
       <tr class="danger">
-        <th style="padding-left: 70px;">削除名</th>
+        <th style="padding-left: 70px;">俳優名</th>
+        <th class="text-center">写真</th>
         <th class="text-center">削除</th>
         <th class="text-center">編集</th>
       </tr>
@@ -12,8 +13,9 @@
     <tbody>
        <% @actors.each do |actor| %>
       <tr class="success">
-        <td style="padding-left: 70px;"><%= link_to actor.name, actor %></td>
-        <td class="text-center"><button type="button" class="btn btn-danger"><%= link_to "削除", actor, method: :delete, data: { confirm: "この映画を削除しますか。" } %>
+        <td style="padding-left: 70px; width: 300px;"><%= link_to actor.name, actor %></td>
+        <td class="text-center"><%= image_tag actor.picture.url, class: "img-circle avatar", style: "width: 50px; height: 50px;" %></td>
+        <td class="text-center"><button type="button" class="btn btn-danger"><%= link_to "削除", actor, method: :delete, data: { confirm: "この俳優を削除しますか。" } %>
             </button>
         </td>
         <td class="text-center">

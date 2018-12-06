@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get '/showing', to: 'static_pages#showing', as: :showing
   get '/show_soon', to: 'static_pages#show_soon', as: :show_soon
   get '/last_update', to: 'static_pages#last_update', as: :last_update
+  get '/cate', to: 'static_pages#cate'
+  get '/nation', to: 'static_pages#nation'
   resources :movies
   resources :actors
   resources :users, only: [:show, :edit]

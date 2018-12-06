@@ -23,9 +23,16 @@ class StaticPagesController < ApplicationController
 
   def top_rating
     @top_movies = Movie.where(check:1).rate_score_desc
-                      .paginate(page: params[:page], per_page: 8, total_entries: 20)
+                      .paginate(page: params[:page], per_page: 8)
   end
-
+  def cate
+    @top_movies = Movie.where(check:1, category: params[:cate])
+                      .paginate(page: params[:page], per_page: 8)
+  end
+  def nation
+    @top_movies = Movie.where(check:1, nation: params[:nation])
+                      .paginate(page: params[:page], per_page: 8)
+  end
   def showing
     @showing_movies = Movie.where(check: 1).date_7_days_ago.date_desc
                           .paginate(page: params[:page], per_page: 8)
@@ -38,7 +45,7 @@ class StaticPagesController < ApplicationController
 
   def last_update
     @last_update_movies = Movie.where(check: 1).order_desc
-                              .paginate(page: params[:page], per_page: 8, total_entries: 20)
+                              .paginate(page: params[:page], per_page: 8)
   end
 
   private

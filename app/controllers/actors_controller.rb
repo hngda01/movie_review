@@ -13,13 +13,13 @@ class ActorsController < ApplicationController
 
   def create
     @actor = Actor.new actor_params
-    @actor.picture = "a19"
+    byebug
     if @actor.save
       flash[:success] = "追加しました。"
       redirect_to new_movie_path
     else
       flash[:danger] = "エラーが発生しました、もう一度お試しください"
-      redirect_to root_path
+      redirect_to new_movie_path
     end
   end
 

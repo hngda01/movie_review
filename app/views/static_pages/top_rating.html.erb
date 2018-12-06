@@ -73,10 +73,11 @@
                     <% else %>
                       <%= render @top_movies %>
                       <div style="margin-left: 40px">
-                        <%= will_paginate @top_movies %>
+
                       </div>
                     <% end %>
                   </div>
+                  <%= will_paginate @top_movies %>
                 </div>
               </div>
             </div>
@@ -223,5 +224,3 @@
     </div>
   </div>
 </div>
-<!-- Copy end right-->
-<%= render "movies/new_movie" %>
